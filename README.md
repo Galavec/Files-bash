@@ -11,7 +11,8 @@ La principal diferencia entre Bash Shell (.sh) y Batch (.bat) es que Bash Shell 
 
 ## Archivos que contiene el repositorio
 El repositorio contiene los siguientes archivos Bash:
-1) N/A.
+1) verificar_existencia_carpeta.bat: Verifica que exista una carpeta donde el script solicita ingresar la ruta donde se debe buscar y también solicita introducir parte del nombre de la carpeta.
+2) buscador_de_rutas.bat: Este script Bash está diseñado para buscar e imprimir las rutas de instalación de diferentes versiones del KIT de Desarrollo de Java (JDK) en tu sistema Windows. Utiliza un FOR "J" para iterar sobre un conjunto de posibles nombres de carpetas de JDK. Para cada nombre, el script busca en la ruta especificada cualquier directorio que coincida con ese nombre. Sin embargo, para evitar confusiones con nombres de directorios similares (por ejemplo, "jdk-17" y "jdk-1.7"), el script utiliza una variable adicional "nombreCortoCarpeta" para asegurarse de que el nombre del directorio coincide exactamente con el nombre que se está buscando.
 
 ## ¿Cómo ejecutarlo?
 En el "cmd.exe" o en la Terminal de Windows, dirigirse a la carpeta donde se encuentre el archivo bash y ejecutarlo poniendo el nombre completo del archivo y la extensión, por ejemplo: .\nombreDelArchivo.bat
@@ -29,7 +30,8 @@ The main difference between Bash Shell (.sh) and Batch (.bat) is that Bash Shell
 
 ## Files contained in the repository
 The repository contains the following Bash files:
-1) N/A.
+1) verificar_existencia_carpeta.bat: Verify that there is a folder where the script asks to enter the path where it should be searched and also asks to enter part of the folder name.
+2) buscador_de_rutas.bat: This Bash script is designed to find and print the installation paths of different versions of the Java Development KIT (JDK) on your Windows system. Use a "J" FOR to iterate over a set of possible JDK folder names. For each name, the script searches the specified path for any directory that matches that name. However, to avoid confusion with similar directory names (e.g., "jdk-17" and "jdk-1.7"), the script uses an additional variable "nombreCortoCarpeta" to ensure that the directory name exactly matches the name being searched for.
 
 ## How to execute it?
 In the "cmd.exe" or in the Windows Terminal, go to the folder where the bash file is located and run it entering the full name of the file and the extension, for example: .\fileName.bat
