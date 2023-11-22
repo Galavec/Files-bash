@@ -12,7 +12,7 @@ FOR /L %%i IN (1,1,4) DO (
     DATE /t
     ECHO ** No olvides que puedes visitar mis repositorios en GitHub: https://github.com/Galavec/
     ECHO.
-    ECHO ****** Configura versión de JDK ******
+    ECHO ****** Configura version de JDK ******
     
 	ECHO.
     ECHO.
@@ -41,13 +41,14 @@ SET "signoExclamacion=^!"
 SET "rutaJdk=C:\Program Files\Java"
 SET "nombreCompletoCarpeta="
 SET "nombreCortoCarpeta="
-SET "jdk6=C:\Program Files\Java\"
-SET "jdk8=C:\Program Files\Java\"
-SET "jdk11=C:\Program Files\Java\"
-SET "jdk17=C:\Program Files\Java\"
+SET "jdk6=GalavecDir"
+SET "jdk8=GalavecDir"
+SET "jdk11=GalavecDir"
+SET "jdk14=GalavecDir"
+SET "jdk17=GalavecDir"
 
 REM "FOR para actualizar la ruta donde se encuentre instalado el JDK correspondiente."
-FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" "jdk11" "jdk-11" "jdk17" "jdk-17") DO (
+FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" "jdk11" "jdk-11" "jdk14" "jdk-14" "jdk17" "jdk-17") DO (
     SET "encontrado=0"
 
 	REM "FOR que obtiene la ruta completa."
@@ -127,6 +128,21 @@ FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" 
 					
 					
 					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,5!"
+					IF "%%~j"=="jdk14" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk14=%%~A"
+						)
+					)
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,6!"
+					IF "%%~j"=="jdk-14" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk14=%%~A"
+						)
+					)
+					
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,5!"
 					IF "%%~j"=="jdk17" (
 						IF "%%~j"=="!nombreCortoCarpeta!" (
 							SET "jdk17=%%~A"
@@ -156,55 +172,57 @@ REM Menú para configurar el JDK.
 ECHO ____
 ECHO.
 ECHO Elija una version con la que desea trabajar:
-ECHO 1) JDK 6.
-ECHO 2) JDK 8.
-ECHO 3) JDK 11.
-ECHO 4) JDK 17.
-ECHO 5) Salir.
+SET /A count=1
+IF EXIST %jdk6% (
+    ECHO %count%^) JDK 6.
+    SET "op%count%=%jdk6%"
+    SET /A count+=1
+)
+IF EXIST %jdk8% (
+    ECHO %count%^) JDK 8.
+    SET "op%count%=%jdk8%"
+    SET /A count+=1
+)
+IF EXIST %jdk11% (
+    ECHO %count%^) JDK 11.
+    SET "op%count%=%jdk11%"
+    SET /A count+=1
+)
+IF EXIST %jdk14% (
+    ECHO %count%^) JDK 14.
+    SET "op%count%=%jdk14%"
+    SET /A count+=1
+)
+IF EXIST %jdk17% (
+    ECHO %count%^) JDK 17.
+    SET "op%count%=%jdk17%"
+    SET /A count+=1
+)
+
+ECHO %count%^) Salir.
 
 ECHO.
-SET /P opcion= ^> Seleccione una opcion [1-5]:
+SET /P opcion= ^> Seleccione una opcion [1-%count%]:
 
-IF "%opcion%"=="1" GOTO op1
-IF "%opcion%"=="2" GOTO op2
-IF "%opcion%"=="3" GOTO op3
-IF "%opcion%"=="4" GOTO op4
-IF "%opcion%"=="5" GOTO salir
+IF "%opcion%"=="%count%" GOTO:salir
 
-:op1
+CALL :aplicarJDK %opcion%
+GOTO:inicio
+
+:aplicarJDK
     ECHO.
-	SETX JAVA_HOME "%jdk6%" /M
-	SETX JAVA_HOME "%jdk6%"
-    ECHO JDK 6 aplicado, por favor cierre todas las ventanas de comandos para que surja efecto.
+    CALL SETX JAVA_HOME "%%op%1%%" /M
+    CALL SETX JAVA_HOME "%%op%1%%"
+    ECHO JDK aplicado, por favor cierre todas las ventanas de comandos para que surja efecto.
     PAUSE
-	GOTO:inicio
-:op2
-    ECHO.
-	SETX JAVA_HOME "%jdk8%" /M
-	SETX JAVA_HOME "%jdk8%"
-    ECHO JDK 8 aplicado, por favor cierre todas las ventanas de comandos para que surja efecto.
-    PAUSE
-	GOTO:inicio
-:op3
-    ECHO.
-	SETX JAVA_HOME "%jdk11%" /M
-	SETX JAVA_HOME "%jdk11%"
-    ECHO JDK 11 aplicado, por favor cierre todas las ventanas de comandos para que surja efecto.
-    PAUSE
-	GOTO:inicio
-:op4
-    ECHO.
-	SETX JAVA_HOME "%jdk17%" /M
-	SETX JAVA_HOME "%jdk17%"
-    ECHO JDK 17 aplicado, por favor cierre todas las ventanas de comandos para que surja efecto.
-    PAUSE
-	GOTO:inicio
+    GOTO:EOF
+
 :salir
     ECHO.
-	ECHO Gracias por usar el script.
+    ECHO Gracias por usar el script.
     PAUSE
     @cls&exit
-	
+
 cmd /k
 
 
@@ -212,7 +230,7 @@ cmd /k
 
 
 
-
+REM Bloque que se ejecutará luego que se actualice el JDK.
 
 :inicio
 CLS
