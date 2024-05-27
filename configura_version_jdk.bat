@@ -46,9 +46,11 @@ SET "jdk8=GalavecDir"
 SET "jdk11=GalavecDir"
 SET "jdk14=GalavecDir"
 SET "jdk17=GalavecDir"
+SET "jdk21=GalavecDir"
+SET "jdk22=GalavecDir"
 
 REM "FOR para actualizar la ruta donde se encuentre instalado el JDK correspondiente."
-FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" "jdk11" "jdk-11" "jdk14" "jdk-14" "jdk17" "jdk-17") DO (
+FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" "jdk11" "jdk-11" "jdk14" "jdk-14" "jdk17" "jdk-17" "jdk21" "jdk-21" "jdk22" "jdk-22") DO (
     SET "encontrado=0"
 
 	REM "FOR que obtiene la ruta completa."
@@ -155,6 +157,36 @@ FOR %%j IN ("jdk6" "jdk1.6" "jdk-6" "jdk-1.6" "jdk8" "jdk1.8" "jdk-8" "jdk-1.8" 
 							SET "jdk17=%%~A"
 						)
 					)
+					
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,5!"
+					IF "%%~j"=="jdk21" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk21=%%~A"
+						)
+					)
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,6!"
+					IF "%%~j"=="jdk-21" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk21=%%~A"
+						)
+					)
+					
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,5!"
+					IF "%%~j"=="jdk22" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk22=%%~A"
+						)
+					)
+					
+					SET "nombreCortoCarpeta=!nombreCompletoCarpeta:~0,6!"
+					IF "%%~j"=="jdk-22" (
+						IF "%%~j"=="!nombreCortoCarpeta!" (
+							SET "jdk22=%%~A"
+						)
+					)
 				)
 			)
         )
@@ -196,6 +228,16 @@ IF EXIST %jdk14% (
 IF EXIST %jdk17% (
     ECHO %count%^) JDK 17.
     SET "op%count%=%jdk17%"
+    SET /A count+=1
+)
+IF EXIST %jdk21% (
+    ECHO %count%^) JDK 21.
+    SET "op%count%=%jdk21%"
+    SET /A count+=1
+)
+IF EXIST %jdk22% (
+    ECHO %count%^) JDK 22.
+    SET "op%count%=%jdk22%"
     SET /A count+=1
 )
 
